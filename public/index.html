@@ -1,61 +1,168 @@
+
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>TowelTrack - Inventarverwaltung & Lieferungen</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
 <header>
     <h1>🐾 TowelTrack</h1>
     <p>Kontrollzentrum & Inventarverwaltung für Pet Shops</p>
 </header>
 
+
 <main class="container">
-    <!-- SECÇÃO 1: Adicionar Novo Pet Shop -->
+
+
     <section class="card">
+
         <h2>Neuen Pet Shop hinzufügen</h2>
+
         <form id="form-add" class="form-grid">
-            <input type="text" id="name" placeholder="Name des Shops" required>
-            <input type="text" id="stadt" placeholder="Stadt" required>
-            <input type="text" id="plz" placeholder="PLZ" required>
-            <input type="text" id="strasse" placeholder="Strasse" required>
-            <input type="text" id="hausnummer" placeholder="Hausnummer" required>
-            <input type="email" id="kontaktEmail" placeholder="E-Mail" required>
-            <input type="number" id="wochenbedarfBasis" placeholder="Wochenbedarf Basis" required>
-            <button type="submit" class="btn-primary">Hinzufügen</button>
+
+            <input type="text" id="name"
+                   placeholder="Name des Shops" required>
+
+            <input type="text" id="stadt"
+                   placeholder="Stadt" required>
+
+            <input type="text" id="plz"
+                   placeholder="PLZ" required>
+
+            <input type="text" id="strasse"
+                   placeholder="Straße" required>
+
+            <input type="text" id="hausnummer"
+                   placeholder="Hausnummer" required>
+
+            <input type="email" id="kontaktEmail"
+                   placeholder="E-Mail" required>
+
+            <input type="number" id="wochenbedarfBasis"
+                   placeholder="Wochenbedarf Basis"
+                   min="0" step="1" required>
+
+            <button type="submit" class="btn-primary">
+                Hinzufügen
+            </button>
+
         </form>
+
     </section>
 
-    <!-- SECÇÃO 2: Gestão de Entregas e Cálculo com Sobras -->
+
+
     <section class="card">
+
         <h2>Lieferungs- und Restbestandkalkulation</h2>
+
         <div class="calc-grid">
+
             <div>
                 <label for="select-shop">Pet Shop auswählen:</label>
+
                 <select id="select-shop">
                     <option value="">-- Shop wählen --</option>
                 </select>
             </div>
+
             <div>
                 <label for="calc-base">Wochenbedarf Basis:</label>
-                <input type="number" id="calc-base" placeholder="Basisbedarf">
+
+                <input type="number" id="calc-base"
+                       placeholder="Basisbedarf"
+                       min="0" step="1">
             </div>
+
             <div>
-                <label for="calc-sobras">Übrig gebliebene Handtücher (Rest):</label>
-                <input type="number" id="calc-sobras" value="0">
+                <label for="calc-sobras">
+                    Übrig gebliebene Handtücher (Rest):
+                </label>
+
+                <input type="number" id="calc-sobras"
+                       value="0" min="0" step="1">
             </div>
-            <button type="button" id="btn-calcular" class="btn-secondary">Liefermenge berechnen (+15%)</button>
+
+            <button type="button" id="btn-calcular"
+                    class="btn-secondary">
+
+                Liefermenge berechnen (+15%)
+
+            </button>
+
         </div>
-        <div id="calc-resultado" class="calc-result" style="display: none;"></div>
+
+        <div id="calc-resultado" class="calc-result"
+             style="display: none;" aria-live="polite">
+        </div>
+
     </section>
 
-    <!-- SECÇÃO 3: Tabela de Locais Registados -->
+
     <section class="card">
+
+        <h2>Wöchentlichen Restbestand registrieren</h2>
+
+        <form id="form-bestand" class="form-grid">
+
+            <input type="date" id="bestand-datum" required>
+
+            <input type="number" id="bestand-rest"
+                   placeholder="Restbestand"
+                   min="0" step="1" required>
+
+            <button type="submit" class="btn-primary">
+                Bestand speichern
+            </button>
+
+        </form>
+
+    </section>
+
+
+
+    <section class="card">
+
+        <h2>Durchgeführte Lieferung registrieren</h2>
+
+        <form id="form-lieferung" class="form-grid">
+
+            <input type="date" id="liefer-datum" required>
+
+            <input type="number" id="liefer-anzahl"
+                   placeholder="Gelieferte Anzahl"
+                   min="0" step="1" required>
+
+            <label>
+                <input type="checkbox" id="sonderlieferung">
+                Sonderlieferung
+            </label>
+
+            <button type="submit" class="btn-primary">
+                Lieferung speichern
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <section class="card">
+
         <h2>Registrierte Standorte</h2>
+
         <div class="table-container">
+
             <table>
+
                 <thead>
                 <tr>
                     <th>Name</th>
@@ -63,18 +170,70 @@
                     <th>Adresse</th>
                     <th>E-Mail</th>
                     <th>Wochenbedarf</th>
-                    <th>Sicherheitsbestand (+15%)</th>
+                    <th>Sicherheitszuschlag</th>
                     <th>Aktion</th>
                 </tr>
                 </thead>
+
                 <tbody id="tabela-corpo">
-                <tr><td colspan="7" class="loading">Daten werden vom Server geladen...</td></tr>
+
+                <tr>
+                    <td colspan="7" class="loading">
+                        Daten werden vom Server geladen...
+                    </td>
+                </tr>
+
                 </tbody>
+
             </table>
+
         </div>
+
     </section>
+
+
+    <section class="card">
+
+        <h2>Bestandshistorie</h2>
+
+        <button type="button" id="btn-bestand-historie">
+            Bestandshistorie anzeigen
+        </button>
+
+        <div id="bestand-historie"></div>
+
+    </section>
+
+
+    <section class="card">
+
+        <h2>Lieferhistorie</h2>
+
+        <button type="button" id="btn-liefer-historie">
+            Lieferhistorie anzeigen
+        </button>
+
+        <div id="liefer-historie"></div>
+
+    </section>
+
+
+    <section class="card">
+
+        <h2>Bedarfshistorie</h2>
+
+        <button type="button" id="btn-bedarf-historie">
+            Bedarfshistorie anzeigen
+        </button>
+
+        <div id="bedarf-historie"></div>
+
+    </section>
+
 </main>
 
+
 <script src="script.js"></script>
+
 </body>
 </html>
